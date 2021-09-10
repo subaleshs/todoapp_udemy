@@ -52,10 +52,11 @@
 					
 					<ul class="list-group t20">
 						{% for a in jobs %}
-						<!--	<li class="list-group-item">Learn something new.</li>
-							<li class="list-group-item todo-completed">Buy a new journal</li>
-							<li class="list-group-item">Book a dentist appointment.</li>-->
-							<li class="list-group-item">{{a}}</li>
+							{% if a.status  %}
+								<li class="list-group-item todo-completed">{{a.job}}</li>
+							{% else %}
+								<li class="list-group-item">{{a.job}}</li>
+							{% endif %}
 						{% endfor %}
 					</ul>
 					
