@@ -21,11 +21,13 @@
 				<div class="col-lg-4 col-lg-offset-4" id="content">
 					<h1>What to do today </h1>
 					
-					<form action="#" method="POST" role="form">
-					
+					<form action="{% url 'addlist' %}" method="POST" role="form">
+
+						{% csrf_token %}
+
 						<div class="form-group">
 							<div class="input-group">
-							  <input type="text" class="form-control" placeholder="Enter todo e.g. Wash my car" aria-label="Todo" aria-describedby="add-btn">
+							  {{form.inp}}
 							  <span class="input-group-btn">
 								  <button type="submit" class="btn btn-default" id="add-btn">ADD</button>
 							  </span>
@@ -37,25 +39,25 @@
 						<div class="col-lg-12">
 							<div class="btn-toolbar">
 								<div class="btn-group">
-									<button type="button" class="btn btn-warning">
+									<a href="{% url 'deleteCompleted' %}"><button type="button" class="btn btn-warning">
 										<i class="glyphicon glyphicon-trash"></i> DELETE COMPLETED
-									</button>
+									</button></a>
 								</div>
 								<div class="btn-group">
-									<button type="button" class="btn btn-danger">
+									<a href="{% url 'deleteAll' %}"><button type="button" class="btn btn-danger">
 										<i class="glyphicon glyphicon-trash"></i> DELETE ALL
-									</button>
+									</button></a>
 								</div>
 							</div>
 						</div>
 					</div>
 					
 					<ul class="list-group t20">
-						{% for a in jobs %}
-							{% if a.status  %}
-								<li class="list-group-item todo-completed">{{a.job}}</li>
+						{% for wrk in jobs %}
+							{% if wrk.status  %}
+								<li class="list-group-item todo-completed">{{wrk.job}}</li>
 							{% else %}
-								<li class="list-group-item">{{a.job}}</li>
+								<li class="list-group-item"><a href="{% url 'completed' wrk.id %}">{{wrk.job}}</a></li>
 							{% endif %}
 						{% endfor %}
 					</ul>
